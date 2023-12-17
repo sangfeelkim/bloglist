@@ -1,0 +1,87 @@
+{% extends "01.layout/frame.html" %}
+
+{% block contents %}
+
+<form action="{% url 'blog:blogmodify' blogId %}" method="post" enctype="multipart/form-data">
+
+{% csrf_token %}    
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>제목</th>
+            <td>
+                <input type="text" name="title" id="title" value="{{data.title}}"
+                style="width: 100%;
+                border: 1px solid #ced4da;">
+            </td>            
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>구분</th>
+            <td>
+                <select name="category" id="category" 
+                style="width: 100%;
+                border: 1px solid #ced4da;
+                ">  
+                <option value="블로그">블로그</option>
+                <option value="[공지사항]">공지사항</option>
+                <option value="[자유게시판]">자유게시판</option>                    
+                <option value="[소소한일상]">일상게시판</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>작성자</th>
+            <td>
+                <input type="text" name="writer" id="writer" value="{{ data.writer }}"
+                style="width: 100%;
+                border: 1px solid #ced4da;
+                ">
+            </td>
+        </tr>
+        <tr>
+
+        </tbody>
+        <tr>
+            <th>내용</th>
+            <td>
+                
+                {% include '02.blog/texteditor/texteditor.html' %}                
+                     
+            </td>
+        </tr>
+        <!-- <tr>
+            <th>이미지</th>
+            <td>            
+                {% for image in images %}
+                <img src="{{ image.image.url }}" alt="Image" width="300" height="200">
+                {% endfor %}
+            </td>
+        </tr> -->
+        <tr>
+            <th>파일첨부</th>
+            <td>    
+                <input  type="file" name="files" id="file" multiple>
+            </td>
+        </tr>
+        <tr>
+            <th>현재파일</th>
+            <td> 
+                {% if data.files %}
+                {{data.files}}
+                {% else %}
+                파일이 없습니다.
+                {% endif %}
+            </td>
+        </tr>
+    </table>  
+</div>
+<input type="submit" class="btn btn-danger" value="작성완료" style="margin-left: 50%;">
+</form>
+
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,76 @@
+<form action="{% url 'blog:answer_create' data.id %}" method="post">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <h2>Order List</h2>
+        <p>주문완료 버튼을 누르면 올라갑니다.</p>
+        <table class="table table-bordered">
+        <thead class="text-center text-white bg-secondary p-3 ">
+        <tr>
+            <th>커피종류</th>
+            <th>온도</th>
+            <th>수량</th>
+            <th>수령인</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio1" name="coffee_type" value="아메라카노" checked>
+                    <label class="form-check-label" for="radio1">아메라카노</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio2" name="coffee_type" value="카페라떼">
+                    <label class="form-check-label" for="radio2">카페라떼</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio3" name="coffee_type" value="바닐라라떼">
+                    <label class="form-check-label" for="radio3">바닐라라떼</label>
+                  </div>                              
+                  <div class="form-check">                    
+                    <input type="radio" class="form-check-input" id="radio4" name="coffee_type">
+                    <label class="form-check-label" for="radio4">기타</label>
+                    <input type="text"  id="radio5" name="coffee_type" placeholder="작성하세요" disabled>                    
+                </div>    
+            </td>
+            <td>            
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio5" name="temperature" value="HOT" checked>
+                    <label class="form-check-label" for="radio5">HOT</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio6" name="temperature" value="ICE">
+                    <label class="form-check-label" for="radio6">ICE</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <select class="form-select" id="sel1" name="quantity">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <input type="text" name="name" id="name" style="border-radius: 20px; border: 0.5px #b2b2b2 solid; width:100%">
+            </td>
+        </tr>
+        </tbody>            
+    </table>
+    <button type="submit" class="btn btn-primary mt-3">주문완료</button>
+</form>
+<script>
+    let coffee_etcs = document.getElementById('radio4');
+    let radioBtn = document.getElementById('radio5');
+    coffee_etcs.addEventListener('click', function(){
+        radioBtn.disabled = false;
+        console.log('coffee_etc:', coffee_etcs.value);
+    })
+
+
+</script>

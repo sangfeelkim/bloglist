@@ -1,0 +1,81 @@
+{% extends "01.layout/frame.html" %}
+{% load static %}  
+<!-- static파일을 사용하기 위해 추가 -->
+{% block contents %}
+
+<form action="{% url 'blog:blogwrite' %}" method="post" enctype="multipart/form-data">
+{% csrf_token %} 
+    <div class="container">
+        <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>제  목</th>
+                <td>
+                    <input type="text" name="title" id="titleId">
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>구  분</th>
+                <td>
+                    <select name="category" id="category" >  
+                    <option value="블로그">블로그</option>
+                    <option value="[공지사항]">공지사항</option>
+                    <option value="[자유게시판]">자유게시판</option>                    
+                    <option value="[소소한일상]">일상게시판</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td>
+                    <input type="text" name="writer" id="writer" value="코딩여기잠들다">
+                </td>
+            </tr>
+            </tbody>
+                <th>내  용</th>
+                <td>
+                    {% include '02.blog/texteditor/texteditor.html' %}
+                </td>
+            </tr>
+            <tr>
+                <th>첨  부</th>
+                <td>
+                    <label for="files">문서</label>
+                    <input type="file" name="files" id="file" multiple>
+                    <br>
+                    <br>
+                    <label for="image">이미지</label>
+                    <input type="file" name="image" multiple>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-danger text-center" value="작성완료" >
+</form>
+
+<script src="/static/js/main.js"></script>
+
+<style>
+    input[type="radio"] {
+        margin-right: 10px;
+    }
+    input[type="text"] {
+        width: 80%;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+    th {
+        width: 10%;
+        text-align: center;
+    }
+    td {
+        width: 90%;
+    }
+</style>
+
+
+{% endblock %}

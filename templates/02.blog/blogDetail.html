@@ -1,0 +1,76 @@
+{% extends "01.layout/frame.html" %}
+
+{% block contents %}
+{% load static %}
+{% load humanize %}
+
+{% csrf_token %}    
+<div class="container">
+    <div class="row">
+    <table class="table">
+        <p class='text-uppercase' style="font-size:12px;">{{data.category}} / {{data.writer}}</p>
+        <thead>
+        <tr>
+            <h3>{{data.title}}</h3>
+        </tr>
+        <hr>
+        </thead>
+        <tbody>        
+        <tr>
+            <h6 id="dateSubject">{{data.content}}</h6>
+        </tr>
+        <tr>
+           <td style="font-size:10px;">{{data.createdate|date:"Y년 F j일"}}</td>
+        </tr>
+        <tr>
+            
+             {% if data.image %}
+                {% for item in multiData %}
+                <img id="blogImage" src="{{item.image.url}}" alt="{{item.image}}">
+                {% endfor %}
+             {% else %}
+                 <p>No image to display</p>
+             {% endif %}
+             {%if user.is_authenticated %}
+                id-{{data.id}}
+                pk- {{data.pk}}
+            {% endif %}
+
+         </tr>
+         
+    </table>
+
+    <div>
+        <a href="/blog" class="btn btn-secondary">목록</a>
+        {% if user.is_authenticated %}
+        <a href="/blog/blogmodify/{{data.id}}" class="btn btn-primary">수정하기</a>
+        <a href="/blog/blogdelete/{{data.id}}" class="btn btn-danger" onclick="return auok();">삭제하기</a>
+        {% endif %}
+    </div>
+
+    <script>
+        console.log("로그를 시작");
+        let dateId = document.getElementById('dateSubject');
+        console.log('dateId:',dateId);
+        let dateId2 = dateId.innerText;
+        console.log('dateId2:',dateId2);
+        
+        dateId.innerHTML = dateId2;
+        
+        // 이미지의 URL을 콘솔에 출력
+        let blogImage = document.getElementById('blogImage');
+        console.log('Image URL:', blogImage.src);
+
+    </script>
+    <hr style="margin-top: 40px;">
+
+    {% include '02.blog/blogListSubject.html' %}
+
+</div>
+</div>
+<style>
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+</style>
+{% endblock %}

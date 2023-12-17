@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+        <form action="{% url 'blog:calc' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+        <div class="card">
+            <div class="card-header text-center">
+                <h3>로또번호 생성기</h3>
+            </div>
+            <div class="card-body">
+                <select name="gubun" class="form-control">
+                    <option value="1">1개</option>
+                    <option value="2">2개</option>
+                    <option value="3">3개</option>
+                    <option value="4">4개</option>
+                    <option value="5">5개</option>
+                </select>
+            </div>
+        </div>
+        <a href="/blog/calc" class="btn btn-primary mt-5">초기화</a>
+        <input type="submit" class="btn btn-danger mt-5" value="선택완료" >
+        </form>
+        </div>
+        <div class="col">
+            <div>
+                <p>{{content}}</p>  
+                <p>당신이 요청한 {{gubun}}개의 숫자가 있어요</p>  
+                <p> 당첨번호 : <br>
+                    {% for item in sorted_lotto %} 
+                    {{item}}<br>
+                    {% endfor %}
+                </p>              
+            </div>            
+        </div>
+    </div>
+</div>

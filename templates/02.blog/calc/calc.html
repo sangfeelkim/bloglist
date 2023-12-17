@@ -1,0 +1,32 @@
+{% extends "01.layout/frame.html" %}
+{% load static %}  
+<!-- static파일을 사용하기 위해 추가 -->
+{% block contents %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+        <form action="{% url 'blog:calc' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+       
+</div>
+
+<script src="/static/js/main.js"></script>
+<style>
+    input[type="radio"] {
+        margin-right: 10px;
+    }
+    input[type="text"] {
+        width: 100%;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+    th {
+        width: 100px;
+        text-align: center;
+    }
+    
+</style>
+
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layout/frame.html" %}
+{% block contents %}
+{% if latest_list %}
+<br>
+    <ul>
+    {% for week_text in latest_list %}
+        <li><a href="/week_report/{{ week_text.id }}/">{{ week_text.week_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No list are available.</p>
+{% endif %}
+
+
+{% if messages %}
+    {% for message in messages %}
+        <script type="text/javascript">
+            alert("{{ message.message }}")
+        </script>
+    {% endfor %}
+{% endif %}
+
+
+{% endblock %}

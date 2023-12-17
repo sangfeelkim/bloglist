@@ -1,0 +1,63 @@
+
+    <!-- 댓글창 시작 -->
+    <div class="row">
+        <h5 class="border-bottom my-3 py-2">
+          <span style="color: blue;"><h3>{{answer_count}}</h3></span>
+          개의 댓글이 있습니다.</h5>
+    </div>
+
+    {% for answer in answers %}
+    <div class="container">      
+      <table class="table table-bordered table-sm">
+        <thead>
+          <tr>
+            <th>작성자</th>
+            <th>{{ answer.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>내용</td>
+            <td> <span class="textEditor_answer">{{ answer.content }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+        <!-- 댓글을 지우자 -->
+        <form action="{% url 'blog:answerdelete' answer.id %}" method="post" class="my-3">
+            {% csrf_token %}            
+            <input type="submit" value="삭제" class="btn btn-danger me-md-2">
+        </form>
+    {% endfor %}
+    <!-- 댓글창 끝-->
+
+    <hr style="margin-top: 15px;">
+    <!-- 댓글창 작성 시작 -->
+    <form action="{% url 'blog:answer' data.id %}" method="post" class="my-2">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="d-flex" >
+                <div class="card my-2">
+                    <input type="text" name="names"  class="form-control" placeholder="작성자의 이름을 입력하세요" > 
+                    <textarea name="contentAnwser" id="editor" class="form-control" placeholder="댓글이 작성하셔요^^"></textarea>
+                    <div>
+                        <!-- <label for="password">비밀번호 : </label>
+                        <input type="password" name="passwd" style="width: 150px; margin-right:50px;" placeholder="숫자 4자리"> -->
+                        <input type="submit" value="등록" class="btn btn-primary me-md-2">
+                    </div>
+                </div>
+            </div>
+            {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+                {% if message.tags == 'info' %}
+                  <li class="{{ message.tags }}">{{ message }}</li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+          
+        </div>
+        <p>{{data.id}}</p>
+    </form>
+

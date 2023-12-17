@@ -1,0 +1,73 @@
+{% load humanize %}
+{% for item in data %}
+<div class="row">
+    <table class="table">
+        <p class='text-uppercase' style="font-size:15px; background-color:rgb(0,183,235); color:white">{{ item.category }} / {{ item.writer }}</p>
+        <thead>
+        <tr>
+            <h3>{{ item.title }}</h3>
+        </tr>
+        </thead>
+        <tbody>
+        <div class="row"> 
+        <tr>
+            <div class="col-12">
+                <p class="dateSubject" id="text-container">{{ item.content }}</p>
+            </div>
+            <div class="col-12">
+                <p>{{ item}}</p>
+
+            </div>
+            <!-- <div class="col-3">
+                <p id="image_container">{{ item.content }}</p> -->
+                <!-- {% if item.image %}
+                <img src="{{ item.image.url }}" alt="{{ item.image }}" width="70%">
+                {% else %}
+                    <p>No image to display</p>
+                {% endif %}                 -->
+            </div>
+        </tr>
+        </div>
+        <tr>
+            <td style="font-size:10px;">{{ item.createdate|date:"Y년 F j일" }}</td>
+        </tr>
+    </tbody>
+    </table>
+    <a class="btn btn-sm btn-light text-center"  href='/blog/blogdetail/{{ item.id }}' style="cursor: pointer;"> 상세보기 </a>
+</div>
+<script>
+    console.log("로그를 시작");
+    
+    const container = document.getElementById('text-container');
+    const lines = container.innerText.split('&nbsp').slice(0,1);
+    container.innerText = lines;
+    const img_container = document.getElementById('image_container');
+    img_content = img_container.innerText;
+    
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(img_content, 'text/html');
+    
+    let imgTags = doc.querySelectorAll('img');
+    console.log('imgTags:',imgTags);
+    
+    if(imgTags.length > 0) {
+        console.log('이미지 태그를 찾았습니다.');
+        img_container.innerHTML = imgTags[0].outerHTML; // 첫 번째 이미지만 표시
+    } else {
+        console.log('이미지 태그를 찾을 수 없습니다.');
+        img_container.innerHTML = ''; // 이미지가 없을 때, 이미지 컨테이너를 비웁니다.
+        img_container.insertAdjacentHTML('afterend', '<p>이미지 없음</p>'); // '이미지 없음' 문구를 이미지 컨테이너 뒤에 추가합니다.
+    }
+    
+    console.log('로그를 종료');
+
+
+
+</script>
+
+<style>
+    img {
+        width: 100%;
+    }
+</style>
+{% endfor %}

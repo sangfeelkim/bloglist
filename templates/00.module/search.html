@@ -1,0 +1,44 @@
+{% extends "layout/new_frame.html" %}
+{% block contents %}
+    <h2 style="margin:20px 30px 20px 20px; ">검색결과</h2>
+    <hr>
+    <div class="md-3" id="table-pad-div">
+        <table class="table table-hover table-striped">
+            <thead>
+                <th scope="col">글번호</th>
+                <th scope="col" style="width: 50%; ">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">조회수</th>
+                <th scope="col">작성일시</th>
+            </thead>
+            {% if importantposts %}
+                {% for important in importantposts %}
+                    <tr onclick="location.href='/weeks/post/{{ important.id }}'" style="cursor:pointer;">
+                        <th ><font color="red">공지</font></th>
+                        <th><font color="red">{{ important.title }}</font></th>
+                        <th><font color="red">{{ important.user_name }}</font></th>
+                        <th><font color="red">{{ important.view_num }}</font></th>
+                        <th><font color="red">{{ important.mk_date }}</font></th>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            <tbody>
+                {% if posts %}
+                    {% for posting in posts %}
+                        <tr onclick="location.href='/weeks/post/{{ posting.id }}'" style="cursor:pointer;">
+                            <th>{{ posting.id }}</th>
+                            <td>{{ posting.title }}</td>
+                            <td>{{ posting.user_name }}</td>
+                            <td>{{ posting.view_num }}</td>
+                            <td>{{ posting.mk_date }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div id="pad-div-1">
+        <a href="/weeks/write/"><button class="btn btn-primary">글쓰기</button></a>
+    </div>
+{% endblock %}
